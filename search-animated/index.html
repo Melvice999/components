@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animated Search</title>
+
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        align-items: center;
+        background-color: aliceblue;
+      }
+      .search-bar-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background-color: aliceblue;
+        padding: 5px;
+        width: 60%;
+        height: 50px;
+        border-radius: 50px;
+        /* horizontal 6px vertical 6px blur 10px transparant */
+        box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2),
+          /* white shadow */ -6px -6px 10px rgba(255, 255, 255, 0.7);
+        margin: 10px;
+        /* animation transtion width */
+        transition: width 1s;
+      }
+      .magnifier {
+        width: 25px;
+        cursor: pointer;
+        position: absolute;
+        left: 20px;
+      }
+      .mic-icon {
+        width: 30px;
+        position: absolute;
+        right: 10px;
+        /* animation transtion width */
+        transition: width 1s;
+        /* animation delay */
+        animation-delay: 1s;
+      }
+      .input {
+        background-color: transparent;
+        border: none;
+        margin: 10px 50px;
+        width: 100%;
+        outline: none;
+        color: rgba(100, 100, 100);
+        /* animation transtion width */
+        transition: width 1s;
+        /* animation delay */
+        animation-delay: 0.5s;
+      }
+      .active.search-bar-container {
+        width: 50px;
+      }
+      .active .input {
+        width: 0;
+      }
+      .active .mic-icon {
+        width: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="search-bar-container active">
+      <img
+        src="https://cdn1.iconfinder.com/data/icons/seo-and-web-development-6/32/development_search_magnifier_magnifying_glass_loupe-67-256.png"
+        alt="magnifier"
+        class="magnifier" id="animated"
+      />
+      <input type="text" class="input" placeholder="Search..." />
+      <img
+        src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-25-512.png"
+        alt="mic-icon"
+        class="mic-icon"
+      />
+    </div>
+
+    <script>
+      const searchBarContainerEl = document.querySelector(
+        ".search-bar-container"
+      );
+      const magnifierEl = document.querySelector(".magnifier");
+
+      magnifierEl.addEventListener("click", () => {
+        searchBarContainerEl.classList.toggle("active");
+      });
+    </script>
+  </body>
+</html>
