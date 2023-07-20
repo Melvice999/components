@@ -4,27 +4,159 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Melvin's Components</title>
+    <link rel="shortcut icon" href="favico/favico.png" type="image/x-icon" />
+
+    <!-- cdn fontawesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
 
     <style>
-      .center {
-        margin: 0;
+      @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
+
+      .btn {
+        background-color: white;
         display: flex;
-        justify-content: center;
-        height: 100vh;
-        background-color: aliceblue;
+        align-items: center;
+        justify-content: flex-start;
+        column-gap: var(--gap);
+        padding: 0.6rem;
+        cursor: pointer;
+        border-radius: var(--radius);
+        border: none;
+        box-shadow: var(--shadow);
+        position: relative;
       }
-      a {
+
+      .bx {
+        font-size: 1.1rem;
+      }
+
+      .dropdown {
+        position: absolute;
+        width: 250px;
+        box-shadow: var(--shadow);
+        border-radius: var(--radius);
+        margin-top: 0.3rem;
+        background: white;
+
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(0.5rem);
+        transition: all 0.1s cubic-bezier(0.16, 1, 0.5, 1);
+      }
+
+      .dropdown a {
+        display: flex;
+        align-items: center;
+        column-gap: var(--gap);
+        padding: 0.8rem 1rem;
         text-decoration: none;
         color: black;
       }
+
+      .dropdown a:hover {
+        background-color: var(--color);
+        color: white;
+      }
+
+      .show {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0rem);
+      }
+      .content a {
+        text-decoration: none;
+        color: black;
+      }
+      .dark li a {
+        color: white;
+        text-decoration: none;
+      }
+      .dark li h5 {
+        color: white;
+      }
+      .arrow {
+        transform: rotate(180deg);
+        transition: 0.2s ease;
+      }
+      li {
+        list-style-type: none;
+      }
     </style>
-    
   </head>
+
   <body>
-    <div class="center">
-      <ul>
-        <a href="search-animated/index.html"><li>Search Animated</li></a>
-      </ul>
+    <div class="container">
+      <button class="btn theme" id="btn">
+        <i class="fa-solid fa-circle-half-stroke" id="arrow"></i>
+        &nbsp Theme
+      </button>
+      <div class="dropdown" id="dropdown">
+        <a onclick="light()">
+          <i class="fa-regular fa-circle"></i>
+          &nbsp Light
+        </a>
+        <a onclick="dark()">
+          <i class="fa-solid fa-moon"></i>
+          &nbsp Dark
+        </a>
+      </div>
+
+      <div class="content">
+        <ul>
+          <li><h5>S</h5></li>
+          <li><a href="search-animated/index.html">Search Animated</a></li>
+          <li><h5>T</h5></li>
+          <li><a href="to-do-list/index.html">Todo List</a></li>
+        </ul>
+      </div>
     </div>
+
+    <script>
+      const dropdownBtn = document.getElementById("btn");
+      const dropdownMenu = document.getElementById("dropdown");
+      const toggleArrow = document.getElementById("arrow");
+
+      // Toggle dropdown function
+      const toggleDropdown = function () {
+        dropdownMenu.classList.toggle("show");
+        toggleArrow.classList.toggle("arrow");
+      };
+
+      // Toggle dropdown open/close when dropdown button is clicked
+      dropdownBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        toggleDropdown();
+      });
+
+      // Close dropdown when dom element is clicked
+      document.documentElement.addEventListener("click", function () {
+        if (dropdownMenu.classList.contains("show")) {
+          toggleDropdown();
+        }
+      });
+
+      // mode dark light
+      function light() {
+        document.querySelector(".content").classList.remove("dark");
+        document.querySelector("ul").classList.remove("dark");
+        document.body.style.backgroundColor = "white";
+      }
+      function dark() {
+        document.querySelector(".content").classList.add("dark");
+        document.querySelector("ul").classList.add("dark");
+        document.body.style.backgroundColor = "black";
+      }
+    </script>
   </body>
 </html>
