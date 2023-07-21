@@ -6,156 +6,166 @@
     <title>Melvin's Components</title>
     <link rel="shortcut icon" href="favico/favico.png" type="image/x-icon" />
 
-    <!-- cdn fontawesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
+    <!-- catamaran font cdn -->
+    <link href="https://fonts.cdnfonts.com/css/catamaran" rel="stylesheet" />
 
     <style>
-      @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
-
-      .btn {
-        background-color: white;
+      body {
+        margin: 0;
+      }
+      /* navbar */
+      * {
+        font-family: catamaran;
+      }
+      .navbar {
         display: flex;
+        justify-content: end;
         align-items: center;
-        justify-content: flex-start;
-        column-gap: var(--gap);
-        padding: 0.6rem;
-        cursor: pointer;
-        border-radius: var(--radius);
-        border: none;
-        box-shadow: var(--shadow);
-        position: relative;
+        background-color: lightgray;
+        padding: 20px 20px;
       }
-
-      .bx {
-        font-size: 1.1rem;
+      .navbar.on {
+        background-color: darkslategrey;
       }
-
-      .dropdown {
-        position: absolute;
-        width: 250px;
-        box-shadow: var(--shadow);
-        border-radius: var(--radius);
-        margin-top: 0.3rem;
-        background: white;
-
+      /* toggle */
+      .input {
         visibility: hidden;
-        opacity: 0;
-        transform: translateY(0.5rem);
-        transition: all 0.1s cubic-bezier(0.16, 1, 0.5, 1);
+      }
+      .label {
+        position: absolute;
+        width: 60px;
+        height: 30px;
+        background-color: rgb(185, 172, 172);
+        border-radius: 20px;
+        cursor: pointer;
+      }
+      .circle {
+        width: 26px;
+        background-color: white;
+        height: 26px;
+        border-radius: 50%;
+        top: 2px;
+        position: absolute;
+        left: 2px;
+        animation: toggleOff 0.4s linear forwards;
+      }
+      .input:checked + .label {
+        background-color: white;
+      }
+      .input:checked + .label .circle {
+        animation: toggleOn 0.4s linear forwards;
+        background-color: black;
       }
 
-      .dropdown a {
-        display: flex;
-        align-items: center;
-        column-gap: var(--gap);
-        padding: 0.8rem 1rem;
-        text-decoration: none;
-        color: black;
+      @keyframes toggleOn {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(30px);
+        }
+      }
+      @keyframes toggleOff {
+        0% {
+          transform: translateX(30px);
+        }
+        100% {
+          transform: translateX(0);
+        }
       }
 
-      .dropdown a:hover {
-        background-color: var(--color);
-        color: white;
-      }
-
-      .show {
-        visibility: visible;
-        opacity: 1;
-        transform: translateY(0rem);
-      }
+      /* content */
       .content a {
-        text-decoration: none;
         color: black;
+        text-decoration: none;
       }
-      .dark li a {
+      .content li {
+        list-style: none;
+      }
+      .ul {
+        text-align: center;
+      }
+
+      /* content dark on */
+      .content.on a {
         color: white;
         text-decoration: none;
       }
-      .dark li h5 {
+      .content.on h5 {
         color: white;
       }
-      .arrow {
-        transform: rotate(180deg);
-        transition: 0.2s ease;
+      .footer {
+        transform: translateY(100%);
+        font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS";
+        text-align: center;
+        padding: 30px 30px;
+        background-color: aquamarine;
       }
-      li {
-        list-style-type: none;
+      .content.on .footer {
+        color: white;
+        background-color: darkslategrey;
       }
     </style>
   </head>
 
   <body>
-    <div class="container">
-      <button class="btn theme" id="btn">
-        <i class="fa-solid fa-circle-half-stroke" id="arrow"></i>
-        &nbsp Theme
-      </button>
-      <div class="dropdown" id="dropdown">
-        <a onclick="light()">
-          <i class="fa-regular fa-circle"></i>
-          &nbsp Light
-        </a>
-        <a onclick="dark()">
-          <i class="fa-solid fa-moon"></i>
-          &nbsp Dark
-        </a>
-      </div>
+    <div class="navbar">
+      <input type="checkbox" id="dark-mode" class="input" />
+      <label for="dark-mode" class="label">
+        <div class="circle"></div>
+      </label>
+    </div>
 
-      <div class="content">
-        <ul>
-          <li><h5>S</h5></li>
-          <li><a href="search-animated/index.html">Search Animated</a></li>
-          <li><h5>T</h5></li>
-          <li><a href="to-do-list/index.html">Todo List</a></li>
-        </ul>
+    <div class="content">
+      <ul class="ul">
+        <li><h5>D</h5></li>
+        <li><a href="dark-mode-toggle/index.html">Dark Mode Toggle</a></li>
+        <li><h5>S</h5></li>
+        <li><a href="search-animated/index.html">Search Animated</a></li>
+        <br />
+        <li><a href="step-progress-bar/index.html">Step Progress Bar</a></li>
+        <li><h5>T</h5></li>
+        <li><a href="to-do-list/index.html">Todo List</a></li>
+      </ul>
+
+      <div class="row" style="height: 100px"></div>
+
+      <div class="footer">
+        Copyright 2023. &nbsp; Vice Computing Laboratories Co.Ltd.
       </div>
     </div>
 
     <script>
-      const dropdownBtn = document.getElementById("btn");
-      const dropdownMenu = document.getElementById("dropdown");
-      const toggleArrow = document.getElementById("arrow");
+      const inputEl = document.querySelector(".input");
+      const bodyEl = document.querySelector("body");
+      const contentEl = document.querySelector(".content");
+      const navbarEl = document.querySelector(".navbar");
 
-      // Toggle dropdown function
-      const toggleDropdown = function () {
-        dropdownMenu.classList.toggle("show");
-        toggleArrow.classList.toggle("arrow");
-      };
+      // default toggle
+      inputEl.checked = JSON.parse(localStorage.getItem("mode"));
+      updateBody();
 
-      // Toggle dropdown open/close when dropdown button is clicked
-      dropdownBtn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        toggleDropdown();
-      });
-
-      // Close dropdown when dom element is clicked
-      document.documentElement.addEventListener("click", function () {
-        if (dropdownMenu.classList.contains("show")) {
-          toggleDropdown();
+      function updateBody() {
+        if (inputEl.checked) {
+          const a = document.querySelectorAll("a");
+          bodyEl.style.backgroundColor = "black";
+          navbarEl.classList.add("on");
+          contentEl.classList.add("on");
+        } else {
+          bodyEl.style.backgroundColor = "white";
+          navbarEl.classList.remove("on");
+          contentEl.classList.remove("on");
         }
+      }
+      // run function toggle
+      inputEl.addEventListener("input", () => {
+        updateBody();
+        updateLocalStorage();
       });
 
-      // mode dark light
-      function light() {
-        document.querySelector(".content").classList.remove("dark");
-        document.querySelector("ul").classList.remove("dark");
-        document.body.style.backgroundColor = "white";
-      }
-      function dark() {
-        document.querySelector(".content").classList.add("dark");
-        document.querySelector("ul").classList.add("dark");
-        document.body.style.backgroundColor = "black";
+      // local storage
+      function updateLocalStorage() {
+        localStorage.setItem("mode", JSON.stringify(inputEl.checked));
       }
     </script>
   </body>

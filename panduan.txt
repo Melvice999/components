@@ -4,3 +4,17 @@ Settings > Pages > Branch > main/root > Save
 git add .
 git commit -am "Commit message"
 git push origin main
+
+========================== CSS ============================
+
+default z-index = 0 if we want send to back item then set -1
+
+horizontal 6px vertical 6px blur 10px transparant
+box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2),
+white shadow
+-6px -6px 10px rgba(255, 255, 255, 0.7);
+
+bring content to middle
+display: flex;
+justify-content: center;
+align-items: center;
