@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
     <title>Todo List</title>
     <link rel="shortcut icon" href="../favico/favico.png" type="image/x-icon" />
     <!-- cdn fontawesome -->
@@ -89,7 +88,11 @@
         autocomplete="off"
       />
       <ul class="list">
-
+        <!-- <li>
+          Halo
+          <i class="fa-solid fa-square-check"></i>
+          <i class="fa-solid fa-trash"></i>
+        </li> -->
       </ul>
     </form>
 
@@ -98,14 +101,18 @@
       const inputEl = document.querySelector(".input");
       const uiEl = document.querySelector(".list");
       let list = JSON.parse(localStorage.getItem("list"));
-      task = "ini agar tidak null";
-      list.forEach((task) => {
-        toDoList(task);
-      });
+      // if ((task == null)) {
+      //   innerText = "maman";
+      // }
+      
 
       formEl.addEventListener("submit", (event) => {
         event.preventDefault();
         toDoList();
+      });
+
+      list.forEach((task) => {
+        toDoList(task);
       });
 
       function toDoList(task) {
