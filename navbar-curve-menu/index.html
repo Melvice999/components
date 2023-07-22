@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar Curve Menu</title>
+    <link rel="shortcut icon" href="../favico/favico.png" type="image/x-icon" />
+
+    <!-- link google icons outline -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #4772ff;
+      }
+      nav {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        color: #777;
+        background: #fff;
+      }
+      nav ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        padding: 0 1.5em;
+        position: relative;
+        width: 30em;
+      }
+      nav li {
+        width: 6em;
+        height: 5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      nav .material-icons-outlined {
+        font-size: 2em;
+        cursor: pointer;
+      }
+      .active-icon {
+        background: #4772ff;
+        color: #4772ff;
+        width: 4.5em;
+        height: 4.5em;
+        border: 0.7em #4772ff solid;
+        border-radius: 50%;
+        position: absolute;
+        top: -2em;
+        left: 13.5em;
+        transition: left 0.8s;
+      }
+      .circle {
+        background: #fff;
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .active-icon .material-icons-outlined {
+        cursor: default;
+      }
+      .curve {
+        background: #fff;
+        color: #4772ff;
+        position: absolute;
+        top: 1.3em;
+        width: 1.8em;
+        height: 1.4em;
+        z-index: -1;
+      }
+      .c-left {
+        left: -2.5em;
+        border-top-right-radius: 2em;
+        box-shadow: 0.4em -0.3em 0 0.2em;
+      }
+      .c-right {
+        right: -2.5em;
+        border-top-left-radius: 2em;
+        box-shadow: -0.4em -0.3em 0 0.2em;
+      }
+
+      @media screen and (max-width: 530px) {
+        nav {
+          font-size: 13px;
+        }
+      }
+
+      @keyframes switch {
+        50% {
+          transform: translateY(6em);
+        }
+        90% {
+          transform: translateY(-1em);
+        }
+        100% {
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li class="icon">
+          <span class="material-icons-outlined"> grid_view </span>
+        </li>
+        <li class="icon">
+          <span class="material-icons-outlined"> format_list_bulleted </span>
+        </li>
+        <li class="icon">
+          <span class="material-icons-outlined"> settings </span>
+        </li>
+        <li class="icon">
+          <span class="material-icons-outlined"> folder_open </span>
+        </li>
+        <li class="icon">
+          <span class="material-icons-outlined"> person_outline </span>
+        </li>
+        <li class="active-icon">
+          <div class="curve c-left"></div>
+          <div class="curve c-right"></div>
+          <div class="circle">
+            <span class="material-icons-outlined"> settings </span>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <script>
+      // get all elements from the DOM
+      const active = document.querySelector(".active-icon");
+      const icons = document.querySelectorAll(".icon");
+      const curveLeft = document.querySelector(".c-left");
+      const curveRight = document.querySelector(".c-right");
+      const circle = document.querySelector(".circle");
+      const icon = document.querySelector(".active-icon span");
+
+      // initial offset in 'em' units
+      let offset = 1.5;
+      // colors for each icon
+      const colors = ["#ff483b", "#87ff42", "#4772ff", "#bb4dff", "#2b2b2b"];
+      // add click event to each icon
+      for (let i = 0; i < icons.length; i++) {
+        icons[i].addEventListener("click", () => {
+          // keep adding to the offset = 1.5em + 6em
+          offset += i * 6;
+          // set left position to offset
+          active.style.left = offset + "em";
+          // reset offset
+          offset = 1.5;
+
+          //change all colors after 600ms
+          setTimeout(() => {
+            // change icon to clicked icon
+            icon.innerText = icons[i].innerText;
+            // change body bg color
+            document.body.style.background = colors[i];
+            // change active border color
+            active.style.borderColor = colors[i];
+            // change active bg color
+            active.style.background = colors[i];
+            // change active color
+            active.style.color = colors[i];
+            // change curves color
+            curveLeft.style.color = colors[i];
+            curveRight.style.color = colors[i];
+          }, 600);
+
+          // add the circle animation
+          circle.style.animation = "switch 1s ease";
+          // remove the animation after it's done so that it can be actived again
+          setTimeout(() => {
+            circle.style.animation = "none";
+          }, 1050);
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dropdown</title>
+    <link rel="shortcut icon" href="../favico/favico.png" type="image/x-icon" />
+
+    <style>
+      body {
+        font-family: Helvetica, sans-serif;
+        background-color: #23242a;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .dropdown {
+        min-width: 15em;
+        position: relative;
+        margin: 2em;
+      }
+      .dropdown * {
+        box-sizing: border-box;
+      }
+      .select {
+        background-color: #2a2f3b;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 2px #2a2f3b solid;
+        border-radius: 0.5em;
+        padding: 1em;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      /* clicked style (add layer in javascrip)*/
+      .select-clicked {
+        border: 2px #26489a solid;
+        box-shadow: 0 0 0.8em #26489a;
+      }
+      .select:hover {
+        background-color: #323741;
+      }
+      .caret {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 6px solid white;
+        transition: 0.3s;
+      }
+      /* rotate style added in javascript */
+      .caret-rotate {
+        transform: rotate(180deg);
+      }
+      .menu {
+        list-style: none;
+        padding: 0.2em 0.5em;
+        background-color: #323741;
+        border: 1px #363a43 solid;
+        box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+        border-radius: 0.5em;
+        color: #9fa5b5;
+        position: absolute;
+        top: 3em;
+        left: 50%;
+        width: 100%;
+        transform: translateX(-50%);
+        opacity: 0;
+        display: none;
+        transition: 0.2s;
+        z-index: 1;
+      }
+      .menu li {
+        padding: 0.7em 0.5em;
+        margin: 0.3em 0;
+        border-radius: 0.5em;
+        cursor: pointer;
+      }
+      .menu li:hover {
+        background-color: #2a2d35;
+      }
+      /* active style added in javascript */
+      .active {
+        background-color: #23242a;
+      }
+      .menu-open {
+        display: block;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dropdown">
+      <div class="select">
+        <span class="selected">Figma</span>
+        <div class="caret"></div>
+      </div>
+      <ul class="menu">
+        <li>Framer</li>
+        <li>Sketch</li>
+        <li>Invision Studio</li>
+        <li class="active">Figma</li>
+        <li>Adobe XD</li>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <div class="select">
+        <span class="selected">Facebook</span>
+        <div class="caret"></div>
+      </div>
+      <ul class="menu">
+        <li class="active">Facebook</li>
+        <li>Instagram</li>
+        <li>Twitter</li>
+        <li>Linkedin</li>
+        <li>Tik Tok</li>
+      </ul>
+    </div>
+
+    <script>
+      // get all dropdowns from the document
+      const dropdowns = document.querySelectorAll(".dropdown");
+
+      // loop through all dropdown elements
+      dropdowns.forEach((dropdown) => {
+        // get inner element from each dropdown
+        const select = dropdown.querySelector(".select");
+        const caret = dropdown.querySelector(".caret");
+        const menu = dropdown.querySelector(".menu");
+        const options = dropdown.querySelectorAll(".menu li");
+        const selected = dropdown.querySelector(".selected");
+
+        // add click event to the select element
+        select.addEventListener("click", () => {
+          // add clicked select styles to the select element
+          select.classList.toggle("select-clicked");
+          // add the rotate styles to the caret element
+          caret.classList.toggle("caret-rotate");
+          // add the open styles to the menu element
+          menu.classList.toggle("menu-open");
+        });
+
+        // loop through all option elements
+        options.forEach((option) => {
+          // add a click event to the option element
+          option.addEventListener("click", () => {
+            // change selected inner text to clicked option inner text
+            selected.innerText = option.innerText;
+            // add the clicked select styles to the select element
+            select.classList.remove("select-clicked");
+            // add the rotate styles to the caret element
+            caret.classList.remove("caret-rotate");
+            // add the open styles to the menu element
+            menu.classList.remove("menu-open");
+            // remove active class from all option elements
+            options.forEach((option) => {
+              option.classList.remove("active");
+            });
+            option.classList.add("active");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

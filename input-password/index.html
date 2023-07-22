@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="shortcut icon" href="../favico/favico.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        margin: 0;
+        background: #dbdbdb;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .pwd {
+        background: #111625;
+        border-radius: 12px;
+        box-shadow: rgba(100, 100, 111, 0.5) 0 7px 29px 0;
+        position: relative;
+      }
+      .pwd input {
+        background: transparent;
+        border: none;
+        font-size: 1.2em;
+        color: #5358b9;
+      }
+      .pwd input:focus {
+        outline: none;
+      }
+      .pwd i {
+        font-size: 1.4em;
+        padding: 1em;
+        color: #dbdbdb;
+        transition: 0.3s;
+      }
+      .pwd .fa-eye,
+      .pwd .fa-eye-slash {
+        cursor: pointer;
+        color: #5358b9;
+        width: 1.2em;
+      }
+      .pwd .overlay {
+        position: absolute;
+        top: 50%;
+        right: 1em;
+        transform: translateY(-50%);
+        background: #dbdbdb;
+        width: 2.5em;
+        height: 2.5em;
+        border-radius: 50%;
+        z-index: 0;
+        transition: 0.5s ease-in-out;
+      }
+      .pwd .overlay-cover {
+        width: 102%;
+        height: 102%;
+        border-radius: 12px;
+        right: 0;
+      }
+      .pwd > div:nth-child(2) {
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <i class="fa-solid fa-eye"></i>
+    <i class="fa-solid fa-eye-slash"></i> -->
+    <div class="pwd">
+      <div class="overlay"></div>
+      <div>
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" placeholder="Password...." />
+        <i class="fa-solid fa-eye-slash"></i>
+      </div>
+    </div>
+
+    <script>
+      // get all of necessary elements
+      const input = document.querySelector(".pwd input");
+      const eye = document.querySelector(".pwd .fa-eye-slash");
+      const lock = document.querySelector(".pwd .fa-lock");
+      const overlay = document.querySelector(".pwd .overlay");
+      // add a click event to the eye icon
+      eye.addEventListener("click", () => {
+        // if the password is hidden..
+        if (input.type === "password") {
+          // ...show it
+          input.type = "text";
+          // toggle between eye icons
+          eye.classList.remove("fa-eye-slash");
+          eye.classList.add("fa-eye");
+          // change color of the lock icon in 500ms
+          setTimeout(() => {
+            lock.style.color = "#111625";
+          }, 500);
+        } else {
+          // ...hide it
+          input.type = "password";
+          // toggle between eye icons
+          eye.classList.remove("fa-eye");
+          eye.classList.add("fa-eye-slash");
+          // change the color of the lock icon
+          lock.style.color = "#dbdbdb";
+        }
+        // toggle the overlay
+        overlay.classList.toggle("overlay-cover");
+      });
+    </script>
+  </body>
+</html>
