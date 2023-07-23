@@ -4,35 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Melvin's Components</title>
-    <link rel="shortcut icon" href="favico/favico.png" type="image/x-icon"/>
+    <link rel="shortcut icon" href="favico/favico.png" type="image/x-icon" />
 
     <!-- catamaran font cdn -->
     <link href="https://fonts.cdnfonts.com/css/catamaran" rel="stylesheet" />
 
+    <!-- digital font cdn -->
+    <link
+      href="https://fonts.cdnfonts.com/css/digital-7-mono"
+      rel="stylesheet"
+    />
+
     <style>
+      * {
+        font-family: catamaran;
+      }
       body {
         margin: 0;
         transition: 0.4s;
       }
       /* navbar */
-      * {
-        font-family: catamaran;
-      }
       .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
         display: flex;
-        justify-content: end;
+        justify-content: space;
         align-items: center;
         background-color: lightgray;
-        padding: 20px 20px;
+        padding: 10px 10px;
       }
       .navbar.on {
         background-color: darkslategrey;
+      }
+      /* date and time */
+      .date-and-time {
+        color: darkslategrey;
+      }
+      .date-and-time.on {
+        color: white;
+      }
+      /* clock */
+      #time {
+        font-size: 20px;
+        font-family: "Digital-7 Mono", sans-serif;
+      }
+      /* am/pm */
+      #meridiem {
+        display: inline;
+        margin-left: 6px;
+        margin-top: 6px;
+      }
+      #date {
+        font-size: 14px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
       /* toggle */
       .input {
         visibility: hidden;
       }
       .label {
+        right: 10%;
         position: absolute;
         width: 60px;
         height: 30px;
@@ -55,7 +87,7 @@
       }
       .input:checked + .label .circle {
         animation: toggleOn 0.4s linear forwards;
-        background-color: black;
+        background-color: darkslategrey;
       }
 
       @keyframes toggleOn {
@@ -74,8 +106,10 @@
           transform: translateX(0);
         }
       }
-
       /* content */
+      .content {
+        margin-top: 100px;
+      }
       .content a {
         color: black;
         text-decoration: none;
@@ -86,8 +120,6 @@
       .ul {
         text-align: center;
       }
-
-      /* content dark on */
       .content.on a {
         color: white;
         text-decoration: none;
@@ -95,6 +127,7 @@
       .content.on h5 {
         color: white;
       }
+      /* footer */
       .footer {
         transform: translateY(100%);
         font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS";
@@ -111,18 +144,29 @@
 
   <body>
     <div class="navbar">
+      <!-- toggle -->
       <input type="checkbox" id="dark-mode" class="input" />
       <label for="dark-mode" class="label">
         <div class="circle"></div>
       </label>
+      <!-- date and time -->
+      <div class="date-and-time">
+        <span id="time"></span>
+        <span id="meridiem"></span>
+        <div id="date"></div>
+      </div>
     </div>
 
+    <!-- content -->
     <div class="content">
       <ul class="ul">
         <li><h5>B</h5></li>
         <li><a href="button/index.html">Button</a></li>
         <li><h5>D</h5></li>
-        <li><a href="dark-mode-toggle/index.html">Dark Mode Toggle</a></li><br>
+        <li><a href="dark-mode-toggle/index.html">Dark Mode Toggle</a></li>
+        <br />
+        <li><a href="digital-clock/index.html">Digital Clock</a></li>
+        <br />
         <li><a href="dropdown/index.html">Dropdown</a></li>
         <li><h5>I</h5></li>
         <li><a href="input-password/index.html">Input Password</a></li>
@@ -144,10 +188,12 @@
     </div>
 
     <script>
+      // dark/light theme
       const inputEl = document.querySelector(".input");
       const bodyEl = document.querySelector("body");
       const contentEl = document.querySelector(".content");
       const navbarEl = document.querySelector(".navbar");
+      const date_and_timeEl = document.querySelector(".date-and-time");
 
       // default toggle
       inputEl.checked = JSON.parse(localStorage.getItem("mode"));
@@ -159,10 +205,12 @@
           bodyEl.style.backgroundColor = "black";
           navbarEl.classList.add("on");
           contentEl.classList.add("on");
+          date_and_timeEl.classList.add("on");
         } else {
           bodyEl.style.backgroundColor = "white";
           navbarEl.classList.remove("on");
           contentEl.classList.remove("on");
+          date_and_timeEl.classList.remove("on");
         }
       }
       // run function toggle
@@ -175,6 +223,67 @@
       function updateLocalStorage() {
         localStorage.setItem("mode", JSON.stringify(inputEl.checked));
       }
+
+      // clock
+      setInterval(() => {
+        const time = document.querySelector("#time");
+        const meridiem = document.querySelector("#meridiem");
+        let date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let seconds = date.getSeconds();
+        let day_night = "AM";
+        if (hours > 12) {
+          day_night = "PM";
+          hours = hours - 12;
+        }
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+          seconds = "0" + seconds;
+        }
+        time.textContent = hours + ":" + minutes + ":" + seconds;
+        meridiem.textContent = day_night;
+      });
+
+      // date
+      let days = [
+        "Minggu",
+        "Senin",
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jum'at",
+        "Sabtu",
+      ]; //array of days
+      let months = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember",
+      ]; //array of months
+      let date = new Date(); //creating Date object
+      let currentDay = days[date.getDay()]; //determining day using the array and method
+      let currentMonth = months[date.getMonth()]; //determining month using the array and method
+      let currentDate = date.getDate(); //current date
+      let currentYear = date.getFullYear(); //current year
+      document.getElementById("date").innerHTML =
+        currentDay +
+        ", " +
+        currentDate +
+        " " +
+        currentMonth +
+        ", " +
+        currentYear;
     </script>
   </body>
 </html>
